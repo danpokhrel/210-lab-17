@@ -14,7 +14,7 @@ struct Node {
 void pushFront(Node **head, Node *node); // Adds node to front of list
 void insertNode(Node *head, int i, Node *node); // Adds node after i-th node
 void deleteNode(Node **head, int i); // Deletes i-th node
-void deleteList(Node *head); // Deletes entire list
+void deleteList(Node **head); // Deletes entire list
 void output(Node *head); // Prints data in list
 
 int main() {
@@ -52,7 +52,7 @@ int main() {
     output(head);
 
     // deleting the linked list
-    deleteList(head);
+    deleteList(&head);
     output(head);
 
     return 0;
@@ -68,6 +68,10 @@ void pushFront(Node **head, Node *node){
 }
 
 void insertNode(Node *head, int i, Node *node){
+    if (i < 0){
+        cout << "\nInvalid input\n";
+        return;
+    }
     Node *current = head;
     Node *previous = head;
     // Traverse to desired node
@@ -90,12 +94,18 @@ void insertNode(Node *head, int i, Node *node){
 }
 
 void deleteNode(Node **head, int i){
+    if (i < 0){
+        cout << "\nInvalid input\n";
+        return;
+    }
     Node *current = *head;
     Node *previous = *head;
     // Traverse to desired node
     for (int j = 0; j < i; j++){
-        if (!current || !previous) // Out of bounds
+        if (!current || !previous){ // Out of bounds
             cout << "\nInvalid input\n";
+            return;
+        }
 
         else if (j == 0)
             current = current->next;
@@ -116,13 +126,14 @@ void deleteNode(Node **head, int i){
     }
 }
 
-void deleteList(Node *head){
-    Node *current = head;
+void deleteList(Node **head){
+    Node *current = *head;
     while (current){
-        head = current->next;
+        *head = current->next;
         delete current;
-        current = head;
+        current = *head;
     }
+    *head = nullptr;
 }
 
 void output(Node * hd) {
