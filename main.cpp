@@ -23,9 +23,8 @@ int main() {
 
     // create a linked list of size SIZE with random numbers 0-99
     for (int i = 0; i < SIZE; i++) {
-        int tmp_val = rand() % 100;
         Node *newVal = new Node;
-        
+        newVal->value = rand() % 100;
         pushFront(&head, newVal);
     }
     output(head);
@@ -41,7 +40,6 @@ int main() {
     output(head);
 
     // insert a node
-    current = head;
     cout << "After which node to insert 10000? " << endl;
     count = 1;
     output(head);
@@ -50,7 +48,6 @@ int main() {
 
     Node * newnode = new Node;
     newnode->value = 10000;
-    newnode->next = current;
     insertNode(&head, entry-1, newnode);
     output(head);
 
@@ -94,7 +91,7 @@ void deleteNode(Node **head, int i){
     Node *current = *head;
     Node *previous = *head;
     // Traverse to desired node
-    for (int j = 0; j <= i; j++){
+    for (int j = 0; j < i; j++){
         if (!current || !previous) // Out of bounds
             cout << "\nInvalid input\n";
 
@@ -116,7 +113,12 @@ void deleteNode(Node **head, int i){
 }
 
 void deleteList(Node *head){
-    
+    Node *current = head;
+    while (current){
+        head = current->next;
+        delete current;
+        current = head;
+    }
 }
 
 void output(Node * hd) {
