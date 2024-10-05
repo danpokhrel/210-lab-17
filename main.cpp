@@ -5,7 +5,7 @@ using namespace std;
 
 const int SIZE = 7;  
 
-struct Node {
+struct Node { // linked list node
     float value;
     Node *next = nullptr;
 };
@@ -102,7 +102,7 @@ void deleteNode(Node **head, int i){
     Node *previous = *head;
     // Traverse to desired node
     for (int j = 0; j < i; j++){
-        if (!current || !previous){ // Out of bounds
+        if (!current->next){ // Out of bounds
             cout << "\nInvalid input\n";
             return;
         }
@@ -128,7 +128,7 @@ void deleteNode(Node **head, int i){
 
 void deleteList(Node **head){
     Node *current = *head;
-    while (current){
+    while (current){ // iterate through list
         *head = current->next;
         delete current;
         current = *head;
@@ -143,7 +143,7 @@ void output(Node * hd) {
     }
     int count = 1;
     Node * current = hd;
-    while (current) {
+    while (current) { // iterate through list
         cout << "[" << count++ << "] " << current->value << endl;
         current = current->next;
     }
