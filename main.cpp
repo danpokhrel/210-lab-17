@@ -12,6 +12,7 @@ struct Node { // linked list node
 
 // Prototypes
 void pushFront(Node **head, Node *node); // Adds node to front of list
+void pushBack(Node **head, Node *node); // Adds node to back of list
 void insertNode(Node *head, int i, Node *node); // Adds node after i-th node
 void deleteNode(Node **head, int i); // Deletes i-th node
 void deleteList(Node **head); // Deletes entire list
@@ -65,6 +66,18 @@ void pushFront(Node **head, Node *node){
         node->next = *head;
         *head = node;
     }
+}
+
+void pushBack(Node **head, Node *node){
+    if (!(*head)){ // First node
+        *head = node;
+        return;
+    }
+    Node *current = *head;
+    while (current->next) // iterate through list
+        current = current->next;
+
+    current->next = node;
 }
 
 void insertNode(Node *head, int i, Node *node){
