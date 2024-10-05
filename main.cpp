@@ -71,24 +71,52 @@ void pushFront(Node **head, Node *node){
 }
 
 void insertNode(Node **head, int i, Node *node){
+    Node *current = *head;
+    Node *previous = *head;
+    // Traverse to desired node
+    for (int j = 0; j <= i; j++){
+        if (!current || !previous) // Out of bounds
+            cout << "\nInvalid input\n";
 
+        else if (j == 0)
+            current = current->next;
+        else {
+            current = current->next;
+            previous = previous->next;
+        }
+    }
+    // Insert Node
+    node->next = current;
+    previous->next = node;
 }
 
 void deleteNode(Node **head, int i){
     Node *current = *head;
-    Node *prev = *head;
-    for (int j = 0; j < i; j++){
-        if (j == 0)
+    Node *previous = *head;
+    // Traverse to desired node
+    for (int j = 0; j <= i; j++){
+        if (!current || !previous) // Out of bounds
+            cout << "\nInvalid input\n";
+
+        else if (j == 0)
             current = current->next;
         else {
             current = current->next;
-            prev = prev->next;
+            previous = previous->next;
         }
+    }
+    // Delete node
+    if (current){
+        if (current->next) // isn't last node
+            previous->next = current->next;
+        else // last node
+            previous->next = nullptr;
+        delete current;
     }
 }
 
-void deleteList(Node **head){
-
+void deleteList(Node *head){
+    
 }
 
 void output(Node * hd) {
