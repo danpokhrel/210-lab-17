@@ -11,9 +11,9 @@ struct Node {
 };
 
 // Prototypes
-void pushFront(Node *head, Node *node); // Adds node to front of list
-void insertNode(Node *head, int i, Node *node); // Adds node after i-th node
-void deleteNode(Node *head, int i); // Deletes i-th node
+void pushFront(Node **head, Node *node); // Adds node to front of list
+void insertNode(Node **head, int i, Node *node); // Adds node after i-th node
+void deleteNode(Node **head, int i); // Deletes i-th node
 void deleteList(Node *head); // Deletes entire list
 void output(Node *head); // Prints data in list
 
@@ -26,7 +26,7 @@ int main() {
         int tmp_val = rand() % 100;
         Node *newVal = new Node;
         
-        pushFront(head, newVal);
+        pushFront(&head, newVal);
     }
     output(head);
 
@@ -37,7 +37,7 @@ int main() {
     int entry;
     cout << "Choice --> ";
     cin >> entry;
-    deleteNode(head, entry-1);
+    deleteNode(&head, entry-1);
     output(head);
 
     // insert a node
@@ -51,7 +51,7 @@ int main() {
     Node * newnode = new Node;
     newnode->value = 10000;
     newnode->next = current;
-    insertNode(head, entry-1, newnode);
+    insertNode(&head, entry-1, newnode);
     output(head);
 
     // deleting the linked list
@@ -59,6 +59,36 @@ int main() {
     output(head);
 
     return 0;
+}
+
+void pushFront(Node **head, Node *node){
+    if (!head) // First node
+        *head = node;
+    else{ // Add node before head
+        node->next = *head;
+        *head = node;
+    }
+}
+
+void insertNode(Node **head, int i, Node *node){
+
+}
+
+void deleteNode(Node **head, int i){
+    Node *current = *head;
+    Node *prev = *head;
+    for (int j = 0; j < i; j++){
+        if (j == 0)
+            current = current->next;
+        else {
+            current = current->next;
+            prev = prev->next;
+        }
+    }
+}
+
+void deleteList(Node **head){
+
 }
 
 void output(Node * hd) {
